@@ -13,7 +13,7 @@ function Confirmation() {
     const fetchBooking = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:5000/api/bookings/user", {
+        const res = await axios.get("https://california-cricket-academy-online.onrender.com/api/bookings/user", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const found = res.data.find((b) => b._id === id);

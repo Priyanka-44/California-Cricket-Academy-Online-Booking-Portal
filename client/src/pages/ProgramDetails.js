@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { GraduationCap, Baby, Clock, Users } from "lucide-react";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://california-cricket-academy-online.onrender.com/api";
 
 
 const bannerImages = {
@@ -214,7 +214,7 @@ const ProgramDetails = () => {
               <div className="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center gap-4">
                 <div className="w-14 h-14 rounded-full bg-green-800 flex items-center justify-center text-xl font-bold text-white flex-shrink-0 overflow-hidden">
                   {coachAvatar
-                    ? <img src={`http://localhost:5000${coachAvatar}`} alt="coach" className="w-full h-full object-cover" />
+                    ? <img src={`https://california-cricket-academy-online.onrender.com${coachAvatar}`} alt="coach" className="w-full h-full object-cover" />
                     : coachInitials
                   }
                 </div>

@@ -15,7 +15,7 @@ function BatchDetails() {
 
         try {
 
-            const res = await axios.get("http://localhost:5000/api/batches");
+               const res = await axios.get("https://california-cricket-academy-online.onrender.com/api/batches");                                                              
 
             const selected = res.data.find(b => b._id === id);
 

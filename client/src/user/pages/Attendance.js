@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import UserHeader from "./UserHeader";
 import Footer from "../../components/Footer";
 
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://california-cricket-academy-online.onrender.com/api";
 
 const UserAttendance = () => {
   const [data, setData] = useState([]);

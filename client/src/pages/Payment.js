@@ -22,7 +22,7 @@ function Payment() {
     const fetchBooking = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:5000/api/bookings/user",
+        const res = await axios.get("https://california-cricket-academy-online.onrender.com/api/bookings/user",
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -47,7 +47,7 @@ function Payment() {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:5000/api/bookings/payment/${id}`,
+        `https://california-cricket-academy-online.onrender.com/api/bookings/payment/${id}`,
         {},
         {
           headers: {

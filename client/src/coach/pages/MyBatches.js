@@ -17,7 +17,7 @@ function MyBatches() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:5000/api/batches",
+        "https://california-cricket-academy-online.onrender.com/api/batches",
         {
           headers:{
             Authorization: token

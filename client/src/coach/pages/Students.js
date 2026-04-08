@@ -12,7 +12,7 @@ const CoachStudents = () => {
   const fetchStudents = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/students", {
+      const res = await axios.get("https://california-cricket-academy-online.onrender.com/api/students", {
         headers: {
            Authorization: `Bearer ${token}` 
           },

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Users, Clock, GraduationCap } from "lucide-react";
 
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://california-cricket-academy-online.onrender.com/api";
 
 const levelColors = {
   Beginner: {

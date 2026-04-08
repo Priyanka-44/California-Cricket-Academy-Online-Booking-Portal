@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import CoachHeader from "../components/CoachHeader";
 import Footer from "../../components/Footer";
 
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://california-cricket-academy-online.onrender.com/api";
 
 const levelColors = {
   Beginner: "bg-green-500/20 text-green-300 border border-green-500/40",

@@ -22,17 +22,17 @@ const CoachDashboard = () => {
 
   const fetchData = async () => {
     try {
-      const profileRes = await axios.get("http://localhost:5000/api/auth/profile", { headers });
+      const profileRes = await axios.get("https://california-cricket-academy-online.onrender.com/api/auth/profile", { headers });
       setCoachName(profileRes.data.name || "Coach");
 
-      const batchRes = await axios.get("http://localhost:5000/api/batches", { headers });
+      const batchRes = await axios.get("https://california-cricket-academy-online.onrender.com/api/batches", { headers });
       const data = batchRes.data;
       setBatches(data);
 
       let totalStudents = 0;
       for (const batch of data) {
         const stuRes = await axios.get(
-          `http://localhost:5000/api/attendance/batch/${batch._id}/students`,
+          `https://california-cricket-academy-online.onrender.com/api/attendance/batch/${batch._id}/students`,
           { headers }
         );
         totalStudents += (stuRes.data.students || []).length;

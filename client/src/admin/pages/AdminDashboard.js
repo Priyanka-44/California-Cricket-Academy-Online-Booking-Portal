@@ -9,7 +9,7 @@ import {
 import AdminHeader from "./AdminHeader";
 import Footer from "../../components/Footer";
 
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = "https://california-cricket-academy-online.onrender.com/api";
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {

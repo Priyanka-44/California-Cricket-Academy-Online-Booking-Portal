@@ -13,7 +13,7 @@ const CoachHeader = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/profile", {
+        const res = await axios.get("https://california-cricket-academy-online.onrender.com/api/auth/profile", {
           headers: { 
             Authorization: `Bearer ${token}` 
           },
@@ -74,7 +74,7 @@ const CoachHeader = () => {
         <button onClick={() => setDropdownOpen(!dropdownOpen)}
           className="flex items-center gap-2 bg-white/10 border border-white/20 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-white/15 transition-all cursor-pointer">
           {coach.avatar ? (
-            <img src={`http://localhost:5000${coach.avatar}`} alt="avatar" className="w-6 h-6 rounded-full object-cover" />
+            <img src={`https://california-cricket-academy-online.onrender.com${coach.avatar}`} alt="avatar" className="w-6 h-6 rounded-full object-cover" />
           ) : (
             <div className="w-6 h-6 rounded-full bg-green-700 flex items-center justify-center text-xs font-bold text-white">
               {getInitials(coach.name)}
