@@ -15,14 +15,13 @@ function Payment() {
   const [method, setMethod] = useState("upi");
   const [booking, setBooking] = useState(null);
 
-  // Real fees booking se fetch karein
   const [fees, setFees] = useState({ programFee: 0, registration: 500, gst: 0, total: 0 });
 
   useEffect(() => {
     const fetchBooking = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("https://california-cricket-academy-online.onrender.com/api/bookings/user",
+        const res = await axios.get("http://localhost:5000/api/bookings/user",
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -44,28 +43,23 @@ function Payment() {
   }, [id]);
 
   const handlePayment = async () => {
-  const token = localStorage.getItem("token");
-
-  
-  toast.success("Payment Successful! ✅");
-  navigate(`/confirmation/${id}`);
-
-  
-  try {
-    await axios.put(
-      `https://california-cricket-academy-online.onrender.com/api/bookings/payment/${id}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    console.log("Payment updated successfully");
-  } catch (err) {
-    console.log("Payment API error:", err);
-  }
-};
+    try {
+      const token = localStorage.getItem("token");
+      await axios.put(
+        `http://localhost:5000/api/bookings/payment/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      toast.success("Payment Successful! ✅");
+      navigate(`/confirmation/${id}`);
+    } catch (err) {
+      toast.error("Payment failed");
+    }
+  };
 
   // QR URL 
   const qrUrl = SCANNER_MODE === "real"
@@ -130,19 +124,19 @@ function Payment() {
             {/* QR Code */}
             {method === "qr" && (
               <div className="text-center">
-                
+
                 <img src={qrUrl} alt="QR Code" className="mx-auto rounded-xl border border-white/10 p-2 bg-white" />
                 {SCANNER_MODE === "dummy" && (
                   <p className="text-xs text-yellow-400 mt-2">⚠️ Dummy QR </p>
                 )}
-                
+
                 <p className="mt-4 font-bold text-white text-lg">Scan to Pay ₹{fees.total}</p>
                 <p className="text-gray-400 text-sm">Scan this QR code using any UPI app to complete your payment</p>
-                
+
                 <div className="bg-blue-900/20 border border-blue-500/20 text-sm p-3 mt-4 rounded-xl text-gray-300">
                   After completing payment, click the button below to proceed
                 </div>
-               
+
                 <button onClick={handlePayment}
                   className="w-full mt-6 bg-green-500 hover:bg-green-400 py-3 rounded-xl font-bold text-white transition-all cursor-pointer">
                   I've Completed Payment
@@ -153,20 +147,20 @@ function Payment() {
 
             {/* Card */}
             {method === "card" && (
-             
-             <div className="space-y-4">
+
+              <div className="space-y-4">
                 <input type="text" placeholder="1234 5678 9012 3456" className={inputCls} />
                 <input type="text" placeholder="Cardholder Name" className={inputCls} />
-                
+
                 <div className="grid grid-cols-2 gap-4">
                   <input type="text" placeholder="MM/YY" className={inputCls} />
                   <input type="text" placeholder="CVV" className={inputCls} />
                 </div>
-               
+
                 <div className="bg-green-900/20 border border-green-500/20 text-sm p-3 rounded-xl text-gray-300">
                   Your payment information is secure and encrypted
                 </div>
-               
+
                 <button onClick={handlePayment}
                   className="w-full bg-green-500 hover:bg-green-400 py-3 rounded-xl font-bold text-white transition-all cursor-pointer">
                   Pay ₹{fees.total}
@@ -184,19 +178,19 @@ function Payment() {
 
             <div className="space-y-3 text-sm">
               {[
-                { 
-                  
-                  label: "Program Fee", 
-                  value: `₹${fees.programFee}` 
+                {
+
+                  label: "Program Fee",
+                  value: `₹${fees.programFee}`
                 },
-                { 
-                  
-                  label: "Registration", 
-                  value: `₹${fees.registration}` 
+                {
+
+                  label: "Registration",
+                  value: `₹${fees.registration}`
                 },
-                { 
-                  label: "GST (18%)", 
-                  value: `₹${fees.gst}` 
+                {
+                  label: "GST (18%)",
+                  value: `₹${fees.gst}`
                 },
               ].map(({ label, value }) => (
                 <div key={label} className="flex justify-between text-gray-300">
@@ -224,7 +218,7 @@ function Payment() {
                 </li>
               ))}
             </ul>
-            
+
           </div>
         </div>
       </div>

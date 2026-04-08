@@ -5,7 +5,7 @@ import CoachHeader from "../components/CoachHeader";
 import Footer from "../../components/Footer";
 import { User, Mail, Phone, MapPin, ImagePlus, Pencil, Save, X } from "lucide-react";
 
-const BASE_URL = "https://california-cricket-academy-online.onrender.com";
+const BASE_URL = "http://localhost:5000";
 
 const CoachProfile = () => {
   const [profile, setProfile] = useState({ name: "", email: "", phone: "", address: "", avatar: "" });

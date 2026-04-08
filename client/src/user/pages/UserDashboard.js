@@ -5,7 +5,7 @@ import { Users, ClipboardList, CalendarCheck } from "lucide-react";
 import UserHeader from "./UserHeader";
 import Footer from "../../components/Footer";
 
-const BASE_URL = "https://california-cricket-academy-online.onrender.com/api";
+const BASE_URL = "http://localhost:5000/api";
 
 const statusColors = {
   paid: "bg-green-500/20 text-green-300 border-green-500/40",

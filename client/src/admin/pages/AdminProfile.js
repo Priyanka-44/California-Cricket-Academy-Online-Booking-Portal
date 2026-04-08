@@ -5,7 +5,7 @@ import AdminHeader from "./AdminHeader";
 import Footer from "../../components/Footer";
 import { User, Mail, Phone, MapPin, ImagePlus, Pencil, Save, X } from "lucide-react";
 
-const BASE_URL = "https://california-cricket-academy-online.onrender.com";
+const BASE_URL = "http://localhost:5000";
 
 const AdminProfile = () => {
   const [profile, setProfile] = useState({ name: "", email: "", phone: "", address: "", avatar: "" });
@@ -16,8 +16,8 @@ const AdminProfile = () => {
   const fileRef = useRef(null);
 
   const token = localStorage.getItem("token");
-  const headers = { 
-    Authorization: `Bearer ${token}` 
+  const headers = {
+    Authorization: `Bearer ${token}`
   };
 
   useEffect(() => {
@@ -25,8 +25,8 @@ const AdminProfile = () => {
       try {
         const res = await axios.get(`${BASE_URL}/api/auth/profile`, { headers });
         setProfile(res.data);
-      } catch (err) { 
-        toast.error("Profile not loaded"); 
+      } catch (err) {
+        toast.error("Profile not loaded");
       }
     };
     fetchProfile();
@@ -49,8 +49,8 @@ const AdminProfile = () => {
       if (imageFile) formData.append("avatar", imageFile);
 
       const res = await axios.put(`${BASE_URL}/api/auth/profile`, formData, {
-        headers: { 
-          Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" 
+        headers: {
+          Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data"
         },
       });
       setProfile(res.data);
@@ -58,8 +58,8 @@ const AdminProfile = () => {
       toast.success("Profile updated successfully ");
     } catch (err) {
       toast.error("Update failed");
-    } finally { 
-      setLoading(false); 
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,26 +69,26 @@ const AdminProfile = () => {
   const avatarSrc = preview ? preview : profile.avatar ? `${BASE_URL}${profile.avatar}` : null;
 
   const fields = [
-    { 
-      label: "Full Name",     
-      key: "name",  
-      type: "text",  
-      icon: <User size={14}/>,  
-      disabled: false 
+    {
+      label: "Full Name",
+      key: "name",
+      type: "text",
+      icon: <User size={14} />,
+      disabled: false
     },
-    { 
-      label: "Email Address", 
-      key: "email", 
-      type: "email", 
-      icon: <Mail size={14}/>,  
-      disabled: true  
+    {
+      label: "Email Address",
+      key: "email",
+      type: "email",
+      icon: <Mail size={14} />,
+      disabled: true
     },
-    { 
-      label: "Phone Number",  
-      key: "phone", 
-      type: "text",  
-      icon: <Phone size={14}/>, 
-      disabled: false 
+    {
+      label: "Phone Number",
+      key: "phone",
+      type: "text",
+      icon: <Phone size={14} />,
+      disabled: false
     },
   ];
 
@@ -119,7 +119,7 @@ const AdminProfile = () => {
               {!editing && (
                 <button onClick={() => setEditing(true)}
                   className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-all cursor-pointer">
-                  <Pencil size={14}/> Edit Profile
+                  <Pencil size={14} /> Edit Profile
                 </button>
               )}
             </div>
@@ -146,7 +146,7 @@ const AdminProfile = () => {
 
               <div>
                 <label className="text-xs text-green-300 uppercase tracking-widest mb-2 flex items-center gap-1.5">
-                  <MapPin size={14}/> Address
+                  <MapPin size={14} /> Address
                 </label>
                 <textarea
                   value={profile.address || ""}
@@ -164,14 +164,14 @@ const AdminProfile = () => {
               {editing && (
                 <div>
                   <label className="text-xs  text-green-300 uppercase tracking-widest mb-2 flex items-center gap-1.5">
-                    <ImagePlus size={14}/> Profile Photo
+                    <ImagePlus size={14} /> Profile Photo
                   </label>
                   <input type="file" accept="image/*" ref={fileRef} onChange={handleImageChange} className="hidden" />
                   <div className="flex items-center gap-4">
                     {avatarSrc && <img src={avatarSrc} alt="preview" className="w-14 h-14 rounded-full object-cover border-2 border-white/20" />}
                     <button onClick={() => fileRef.current.click()}
                       className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/20 text-gray-300 text-sm hover:bg-white/10 transition-all cursor-pointer">
-                      <ImagePlus size={14}/> Choose Image
+                      <ImagePlus size={14} /> Choose Image
                     </button>
                     {imageFile && <span className="text-xs text-green-400 truncate max-w-[140px]">{imageFile.name}</span>}
                   </div>
@@ -183,11 +183,11 @@ const AdminProfile = () => {
                   <button onClick={handleSave} disabled={loading}
                     className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer
                       ${loading ? "bg-green-700/50 cursor-not-allowed text-green-300" : "bg-gradient-to-r from-green-600 to-emerald-700 hover:opacity-90 text-white"}`}>
-                    <Save size={15}/> {loading ? "Saving..." : "Save Changes"}
+                    <Save size={15} /> {loading ? "Saving..." : "Save Changes"}
                   </button>
                   <button onClick={() => { setEditing(false); setPreview(null); setImageFile(null); }}
                     className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold border border-white/20 text-gray-300 hover:bg-white/5 transition-all cursor-pointer">
-                    <X size={15}/> Cancel
+                    <X size={15} /> Cancel
                   </button>
                 </div>
               )}

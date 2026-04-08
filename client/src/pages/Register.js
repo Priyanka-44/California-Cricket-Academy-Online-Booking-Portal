@@ -22,7 +22,7 @@ function Register() {
     }
 
     try {
-      await axios.post("https://california-cricket-academy-online.onrender.com/api/auth/register", { name, email, phone, age, password, role });
+      await axios.post("http://localhost:5000/api/auth/register", { name, email, phone, age, password, role });
       toast.success("Registration successful");
       navigate("/login");
     }

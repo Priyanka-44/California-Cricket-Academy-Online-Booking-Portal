@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Users, UserCheck, LayersIcon , CalendarCheck, } from "lucide-react";
+import { Users, UserCheck, LayersIcon, CalendarCheck, } from "lucide-react";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, Legend
@@ -9,7 +9,7 @@ import {
 import AdminHeader from "./AdminHeader";
 import Footer from "../../components/Footer";
 
-const BASE_URL = "https://california-cricket-academy-online.onrender.com/api";
+const BASE_URL = "http://localhost:5000/api";
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -26,11 +26,11 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const AdminDashboard = () => {
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
   const [stats, setStats] = useState({ totalUsers: 0, totalCoaches: 0, totalBatches: 0, totalBookings: 0 });
   const [chartData, setChart] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [adminName, setAdminName] = useState("Admin"); 
+  const [adminName, setAdminName] = useState("Admin");
 
   const token = localStorage.getItem("token");
   const headers = { Authorization: `Bearer ${token}` };
@@ -44,47 +44,47 @@ const AdminDashboard = () => {
         setStats({ totalUsers, totalCoaches, totalBatches, totalBookings });
         setChart(chartData || []);
 
-        //  Admin profile — real name fetch
+        //  Admin profile 
         const profileRes = await axios.get(`${BASE_URL}/auth/profile`, { headers });
         setAdminName(profileRes.data.name || "Admin");
 
       } catch (err) {
         console.log(err);
-      } finally { 
-        setLoading(false); 
+      } finally {
+        setLoading(false);
       }
     };
     fetchAll();
   }, []);
 
   const cards = [
-    { 
-      label: "Total Users",    
-      value: stats.totalUsers,    
-      icon: <Users/>, 
-      color: "from-gray-600 to-emerald-500",  
-      path: "/admin/users"    
+    {
+      label: "Total Users",
+      value: stats.totalUsers,
+      icon: <Users />,
+      color: "from-gray-600 to-emerald-500",
+      path: "/admin/users"
     },
-    { 
-      label: "Total Coaches",  
-      value: stats.totalCoaches,  
-      icon: <UserCheck />, 
-      color: "from-gray-600 to-blue-500",      
-      path: "/admin/coaches"  
+    {
+      label: "Total Coaches",
+      value: stats.totalCoaches,
+      icon: <UserCheck />,
+      color: "from-gray-600 to-blue-500",
+      path: "/admin/coaches"
     },
-    { 
-      label: "Total Batches",  
-      value: stats.totalBatches,  
-      icon: <LayersIcon />, 
-      color: "from-gray-600 to-purple-500",  
-      path: "/admin/batches"  
+    {
+      label: "Total Batches",
+      value: stats.totalBatches,
+      icon: <LayersIcon />,
+      color: "from-gray-600 to-purple-500",
+      path: "/admin/batches"
     },
-    { 
-      label: "Total Bookings", 
-      value: stats.totalBookings, 
-      icon: <CalendarCheck />, 
-      color: "from-gray-500 to-orange-500",  
-      path: "/admin/bookings" 
+    {
+      label: "Total Bookings",
+      value: stats.totalBookings,
+      icon: <CalendarCheck />,
+      color: "from-gray-500 to-orange-500",
+      path: "/admin/bookings"
     },
   ];
 
@@ -133,8 +133,8 @@ const AdminDashboard = () => {
                     <YAxis tick={{ fill: "#9ca3af", fontSize: 11 }} axisLine={false} tickLine={false} />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend wrapperStyle={{ color: "#9ca3af", fontSize: "12px", paddingTop: "16px" }} />
-                    <Bar dataKey="enrolledStudents" name="Enrolled Students" fill="#16a34a"              radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="maxCapacity"      name="Max Capacity"      fill="rgba(255,255,255,0.15)" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="enrolledStudents" name="Enrolled Students" fill="#16a34a" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="maxCapacity" name="Max Capacity" fill="rgba(255,255,255,0.15)" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               )}

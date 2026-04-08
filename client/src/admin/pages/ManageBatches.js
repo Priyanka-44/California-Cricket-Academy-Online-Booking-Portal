@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import AdminHeader from "./AdminHeader";
 import Footer from "../../components/Footer";
 
-const BASE_URL = "https://california-cricket-academy-online.onrender.com/api";
+const BASE_URL = "http://localhost:5000/api";
 
 const levelColors = {
   Beginner: "bg-green-500/20 text-green-300 border-green-500/40",
@@ -33,8 +33,8 @@ const ManageBatches = () => {
   const [loading, setLoading] = useState(false);
 
   const token = localStorage.getItem("token");
-  const headers = { 
-    Authorization: `Bearer ${token}` 
+  const headers = {
+    Authorization: `Bearer ${token}`
   };
 
   useEffect(() => { fetchBatches(); fetchCoaches(); }, []);
@@ -161,7 +161,7 @@ const ManageBatches = () => {
                 className={inputCls}
               />
 
-              
+
               <div className="relative">
                 <Baby size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 <input
@@ -284,14 +284,14 @@ const ManageBatches = () => {
                       <p className="text-xs text-white-100">{batch.ageGroup}</p>
                     </div>
 
-                  
+
                     {batch.schedule && (
                       <div className="flex items-center gap-1 mt-0.5">
                         <Clock size={12} className="text-white-500" />
                         <p className="text-xs text-white-500">{batch.schedule}</p>
                       </div>
                     )}
-                    
+
                   </div>
                   <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${lc}`}>
                     {batch.level}
@@ -337,7 +337,7 @@ const ManageBatches = () => {
           })}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

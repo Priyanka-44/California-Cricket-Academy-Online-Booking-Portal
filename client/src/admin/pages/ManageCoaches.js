@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import AdminHeader from "./AdminHeader";
 import Footer from "../../components/Footer";
 
-const BASE_URL = "https://california-cricket-academy-online.onrender.com/api";
+const BASE_URL = "http://localhost:5000/api";
 
 const ManageCoaches = () => {
   const [coaches, setCoaches] = useState([]);
@@ -12,8 +12,8 @@ const ManageCoaches = () => {
   const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem("token");
-  const headers = { 
-    Authorization: `Bearer ${token}` 
+  const headers = {
+    Authorization: `Bearer ${token}`
   };
 
   useEffect(() => { fetchCoaches(); fetchBatches(); }, []);
@@ -86,7 +86,7 @@ const ManageCoaches = () => {
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 rounded-xl bg-blue-700 flex items-center justify-center font-bold text-white">
                       {coach.avatar
-                        ? <img src={`https://california-cricket-academy-online.onrender.com${coach.avatar}`} alt="" className="w-full h-full rounded-xl object-cover" />
+                        ? <img src={`http://localhost:5000${coach.avatar}`} alt="" className="w-full h-full rounded-xl object-cover" />
                         : getInitials(coach.name)
                       }
                     </div>

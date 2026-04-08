@@ -18,7 +18,7 @@ function Booking() {
   useEffect(() => {
     const fetchBatch = async () => {
       try {
-        const res = await axios.get("https://california-cricket-academy-online.onrender.com/api/batches");
+        const res = await axios.get("http://localhost:5000/api/batches");
         const selected = res.data.find((b) => b._id === id);
         setBatch(selected);
       } 
@@ -35,7 +35,7 @@ function Booking() {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        "https://california-cricket-academy-online.onrender.com/api/bookings",
+        "http://localhost:5000/api/bookings",
         { 
           batchId: id 
         },

@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Mail, Lock, Eye, EyeOff, ArrowLeft } from "lucide-react";
 
-const BASE_URL = "https://california-cricket-academy-online.onrender.com/api";
+const BASE_URL = "http://localhost:5000/api";
 
 function ForgotPassword() {
   const navigate = useNavigate();

@@ -5,7 +5,7 @@ import { Trash2 } from "lucide-react";
 import AdminHeader from "./AdminHeader";
 import Footer from "../../components/Footer";
 
-const BASE_URL = "https://california-cricket-academy-online.onrender.com/api";
+const BASE_URL = "http://localhost:5000/api";
 
 const roleColors = {
   user: "bg-green-500/20 text-green-300 border-green-500/40",
@@ -19,8 +19,8 @@ const Users = () => {
   const [search, setSearch] = useState("");
 
   const token = localStorage.getItem("token");
-  const headers = { 
-    Authorization: `Bearer ${token}` 
+  const headers = {
+    Authorization: `Bearer ${token}`
   };
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const Users = () => {
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-xl bg-green-800 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
                         {user.avatar
-                          ? <img src={`https://california-cricket-academy-online.onrender.com${user.avatar}`} alt="" className="w-full h-full rounded-xl object-cover" />
+                          ? <img src={`http://localhost:5000${user.avatar}`} alt="" className="w-full h-full rounded-xl object-cover" />
                           : getInitials(user.name)
                         }
                       </div>

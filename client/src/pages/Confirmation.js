@@ -13,7 +13,7 @@ function Confirmation() {
     const fetchBooking = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("https://california-cricket-academy-online.onrender.com/api/bookings/user", {
+        const res = await axios.get("http://localhost:5000/api/bookings/user", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const found = res.data.find((b) => b._id === id);
@@ -23,7 +23,7 @@ function Confirmation() {
     fetchBooking();
   }, [id]);
 
-  const programFee   = booking?.batchId?.fees || 0;
+  const programFee = booking?.batchId?.fees || 0;
   const registration = 500;
   const gst = Math.round(programFee * 0.18);
   const total = programFee + registration + gst;
@@ -32,7 +32,7 @@ function Confirmation() {
   const invoiceDate = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "long", year: "numeric" });
   const invoiceNo = `INV-${id?.slice(-8)?.toUpperCase()}`;
 
-  // ── Professional PDF ──────────────────────────────────────────────────────
+  //  PDF
   const downloadInvoice = () => {
     const doc = new jsPDF({ unit: "mm", format: "a4" });
     const W = 210;
@@ -86,11 +86,11 @@ function Confirmation() {
     doc.setFontSize(11);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(20, 20, 20);
-    
+
     doc.setFontSize(9);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(80, 80, 80);
-    doc.text(booking?.userId?.name || "Student", margin, 63); 
+    doc.text(booking?.userId?.name || "Student", margin, 63);
     doc.text(`Booking ID: booking-${id}`, margin, 69);
     doc.text("Payment Method: UPI / Online", margin, 75);
 
@@ -124,23 +124,23 @@ function Confirmation() {
 
     // Table rows
     const rows = [
-      { 
-        no: "01", 
-        desc: `Monthly Training Fee — ${program}`, 
-        qty: "1",  rate: `Rs.${programFee}`,   
-        amt: `Rs.${programFee}` 
+      {
+        no: "01",
+        desc: `Monthly Training Fee — ${program}`,
+        qty: "1", rate: `Rs.${programFee}`,
+        amt: `Rs.${programFee}`
       },
-      { 
-        no: "02", 
-        desc: "Registration / Enrollment Fee",      
-        qty: "1",  rate: `Rs.${registration}`, 
-        amt: `Rs.${registration}` 
+      {
+        no: "02",
+        desc: "Registration / Enrollment Fee",
+        qty: "1", rate: `Rs.${registration}`,
+        amt: `Rs.${registration}`
       },
-      { 
-        no: "03", 
-        desc: "GST (18%) on Training Fee",          
-        qty: "—",  rate: "18%",                
-        amt: `Rs.${gst}` 
+      {
+        no: "03",
+        desc: "GST (18%) on Training Fee",
+        qty: "—", rate: "18%",
+        amt: `Rs.${gst}`
       },
     ];
 
@@ -158,7 +158,7 @@ function Confirmation() {
       doc.text(row.rate, margin + 125, rowY + 6.5);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(20, 20, 20);
-      doc.text(row.amt,  W - margin - 3, rowY + 6.5, { align: "right" });
+      doc.text(row.amt, W - margin - 3, rowY + 6.5, { align: "right" });
       rowY += 10;
     });
 
@@ -231,25 +231,25 @@ function Confirmation() {
         <h2 className="text-xl font-bold mb-6 text-white">Booking Details</h2>
         <div className="grid md:grid-cols-2 gap-6 text-sm">
           {[
-            { 
-              label: "Student Name", 
-              value: booking?.userId?.name || "—" 
+            {
+              label: "Student Name",
+              value: booking?.userId?.name || "—"
             },
-            { 
-              label: "Booking ID",   
-              value: `booking-${id}` 
+            {
+              label: "Booking ID",
+              value: `booking-${id}`
             },
-            { 
-              label: "Invoice No",      
-              value: invoiceNo 
+            {
+              label: "Invoice No",
+              value: invoiceNo
             },
-            { 
-              label: "Program",         
-              value: program 
+            {
+              label: "Program",
+              value: program
             },
-            { 
-              label: "Training Starts", 
-              value: "2026-04-01" 
+            {
+              label: "Training Starts",
+              value: "2026-04-01"
             },
           ].map(({ label, value }) => (
             <div key={label}>
@@ -261,17 +261,17 @@ function Confirmation() {
         <hr className="my-6 border-white/10" />
         <div className="space-y-2 text-sm">
           {[
-            { 
-              label: "Monthly Fee",      
-               value: `₹${programFee}` 
-              },
-            { 
-              label: "Registration Fee",  
-              value: `₹${registration}` 
+            {
+              label: "Monthly Fee",
+              value: `₹${programFee}`
             },
-            { 
-              label: "GST (18%)",         
-              value: `₹${gst}` 
+            {
+              label: "Registration Fee",
+              value: `₹${registration}`
+            },
+            {
+              label: "GST (18%)",
+              value: `₹${gst}`
             },
           ].map(({ label, value }) => (
             <div key={label} className="flex justify-between text-gray-400">

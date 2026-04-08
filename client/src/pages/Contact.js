@@ -10,7 +10,7 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://california-cricket-academy-online.onrender.com/api/contact", { name, email, message });
+      await axios.post("http://localhost:5000/api/contact", { name, email, message });
       toast.success("Message sent successfully");
       setName(""); setEmail(""); setMessage("");
     } 

@@ -5,7 +5,7 @@ import UserHeader from "./UserHeader";
 import Footer from "../../components/Footer";
 import { User, Mail, Phone, MapPin, ImagePlus, Pencil, Save, X } from "lucide-react";
 
-const BASE_URL = "https://california-cricket-academy-online.onrender.com";
+const BASE_URL = "http://localhost:5000";
 
 const Profile = () => {
   const [profile, setProfile] = useState({ name: "", email: "", phone: "", address: "", avatar: "", role: "" });
@@ -16,8 +16,8 @@ const Profile = () => {
   const fileRef = useRef(null);
 
   const token = localStorage.getItem("token");
-  const headers = { 
-    Authorization: `Bearer ${token}` 
+  const headers = {
+    Authorization: `Bearer ${token}`
   };
 
   useEffect(() => {
@@ -63,26 +63,26 @@ const Profile = () => {
   const avatarSrc = preview ? preview : profile.avatar ? `${BASE_URL}${profile.avatar}` : null;
 
   const fields = [
-    { 
-      label: "Full Name", 
-      key: "name", 
-      type: "text", 
-      icon: <User size={14} />, 
-      disabled: false 
+    {
+      label: "Full Name",
+      key: "name",
+      type: "text",
+      icon: <User size={14} />,
+      disabled: false
     },
-    { 
-      label: "Email Address",  
-      key: "email", 
-      type: "email", 
-      icon: <Mail size={14} />, 
-      disabled: true 
+    {
+      label: "Email Address",
+      key: "email",
+      type: "email",
+      icon: <Mail size={14} />,
+      disabled: true
     },
-    { 
-      label: "Phone Number", 
-      key: "phone", 
-      type: "text", 
-      icon: <Phone size={14} />, 
-      disabled: false 
+    {
+      label: "Phone Number",
+      key: "phone",
+      type: "text",
+      icon: <Phone size={14} />,
+      disabled: false
     },
   ];
 
