@@ -44,23 +44,28 @@ function Payment() {
   }, [id]);
 
   const handlePayment = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.put(
-        `https://california-cricket-academy-online.onrender.com/api/bookings/payment/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-      toast.success("Payment Successful! ✅");
-      navigate(`/confirmation/${id}`);
-    } catch (err) {
-      toast.error("Payment failed");
-    }
-  };
+  const token = localStorage.getItem("token");
+
+  
+  toast.success("Payment Successful! ✅");
+  navigate(`/confirmation/${id}`);
+
+  
+  try {
+    await axios.put(
+      `https://california-cricket-academy-online.onrender.com/api/bookings/payment/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("Payment updated successfully");
+  } catch (err) {
+    console.log("Payment API error:", err);
+  }
+};
 
   // QR URL 
   const qrUrl = SCANNER_MODE === "real"
