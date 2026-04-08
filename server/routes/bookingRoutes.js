@@ -39,7 +39,7 @@ router.post("/", authMiddleware, async (req, res) => {
 router.get("/user", authMiddleware, async (req, res) => {
   try {
     const bookings = await Booking.find({ userId: req.user.id })
-     .populate("batchId", "title level fees")
+      .populate("batchId", "title level fees")
       .populate("userId", "name email");
     res.json(bookings);
   } catch (error) {
@@ -69,7 +69,7 @@ router.put("/payment/:id", authMiddleware, async (req, res) => {
       { new: true }
     );
 
-    const user  = await User.findById(booking.userId);
+    const user = await User.findById(booking.userId);
     const batch = await Batch.findById(booking.batchId);
 
     // Student duplicate check
@@ -82,6 +82,13 @@ router.put("/payment/:id", authMiddleware, async (req, res) => {
     await Batch.findByIdAndUpdate(booking.batchId, { $inc: { enrolledStudents: 1 } });
 
     //  EMAIL SEND
+    console.log("Booking userId:", booking.userId);
+
+  
+    console.log("Fetched user:", user);
+
+    console.log("Fetched batch:", batch);
+
     try {
       await sendEmail(
         user.email,
@@ -91,6 +98,7 @@ router.put("/payment/:id", authMiddleware, async (req, res) => {
       console.log("✅ Email sent to:", user.email);
     } catch (emailErr) {
       // Email fail hone se payment fail nahi hoga
+      console.log("Email send failed FULL:", emailErr);
       console.log("Email send failed:", emailErr.message);
     }
 
