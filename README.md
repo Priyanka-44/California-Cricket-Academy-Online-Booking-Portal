@@ -22,16 +22,16 @@ This project provides a seamless platform for students to explore available cric
 
 Coach Side :
 
-Coach Login & Authentication
-Coach Dashboard
-View assigned batches
-Manage student attendance
-View student details
-Check batch schedules
-Track bookings
-Update training session status
-Monitor daily attendance records
-Profile management
+* Coach Login & Authentication
+* Coach Dashboard
+* View assigned batches
+* Manage student attendance
+* View student details
+* Check batch schedules
+* Track bookings
+* Update training session status
+* Monitor daily attendance records
+* Profile management
 
 Admin Side :
 
