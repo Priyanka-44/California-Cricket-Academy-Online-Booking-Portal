@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import AdminHeader from "./AdminHeader";
 import Footer from "../../components/Footer";
 
+
+
 const BASE_URL = "http://localhost:5000/api";
 
 const levelColors = {
@@ -31,6 +33,8 @@ const ManageBatches = () => {
   const [editId, setEditId] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [importFile, setImportFile] = useState(null);
+  const [importLoading, setImportLoading] = useState(false);
 
   const token = localStorage.getItem("token");
   const headers = {
@@ -117,6 +121,39 @@ const ManageBatches = () => {
     }
   };
 
+  const handleBulkImport = async () => {
+    if (!importFile) {
+      toast.warning("Please select CSV / Excel file");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", importFile);
+
+    setImportLoading(true);
+
+    try {
+      await axios.post(
+        `${BASE_URL}/batches/import`,
+        formData,
+        {
+          headers: {
+            ...headers,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      toast.success("Bulk import successful");
+      fetchBatches();
+      setImportFile(null);
+    } catch (err) {
+      toast.error("Import failed");
+      console.log(err);
+    } finally {
+      setImportLoading(false);
+    }
+  };
   const inputCls =
     "bg-white/5 border border-white/10 text-white placeholder-gray-500 rounded-xl px-4 py-3 text-sm outline-none focus:border-green-500/50 transition-colors";
 
@@ -126,21 +163,49 @@ const ManageBatches = () => {
       <div className="p-6 max-w-7xl mx-auto">
 
         {/* Page Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-bold text-white">Manage Batches</h1>
-            <p className="text-gray-400 text-sm mt-1">{batches.length} total batches</p>
+            <p className="text-gray-400 text-sm mt-1">
+              {batches.length} total batches
+            </p>
           </div>
 
-          <button
-            onClick={() => { setForm(emptyForm); setEditId(null); setShowForm(!showForm); }}
-            className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 hover:opacity-90 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer"
-          >
-            {showForm
-              ? <><X size={15} /> Cancel</>
-              : <><Plus size={15} /> Add Batch</>
-            }
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={() => {
+                setForm(emptyForm);
+                setEditId(null);
+                setShowForm(!showForm);
+              }}
+              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-700 hover:opacity-90 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer"
+            >
+              {showForm ? (
+                <>
+                  <X size={15} /> Cancel
+                </>
+              ) : (
+                <>
+                  <Plus size={15} /> Add Batch
+                </>
+              )}
+            </button>
+
+            <input
+              type="file"
+              accept=".csv,.xlsx,.xls"
+              onChange={(e) => setImportFile(e.target.files[0])}
+              className="text-sm text-white file:bg-blue-600 file:text-white file:border-0 file:px-3 file:py-2 file:rounded-lg"
+            />
+
+            <button
+              onClick={handleBulkImport}
+              disabled={importLoading}
+              className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-xl text-sm font-semibold text-white"
+            >
+              {importLoading ? "Importing..." : "Import CSV / Excel"}
+            </button>
+          </div>
         </div>
 
         {/* Add / Edit Form */}

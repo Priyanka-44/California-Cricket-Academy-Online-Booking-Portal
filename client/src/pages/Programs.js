@@ -64,8 +64,10 @@ const Programs = () => {
   }, [levelFilter, ageFilter, programs]);
 
   const uniqueAges = ["All", ...new Set(programs.map((p) => p.ageGroup))];
-  const levels = ["All", "Beginner", "Intermediate", "Advanced"];
-
+  const levels = [
+    "All",
+    ...new Set(programs.map((p) => p.level).filter(Boolean)),
+  ];
   const btn = (active) =>
     `px-3 py-1.5 rounded-lg text-sm font-medium border transition-all cursor-pointer
     ${active
@@ -141,7 +143,7 @@ const Programs = () => {
               return (
                 <div
                   key={program._id}
-                  className="bg-gray-900 border border-white/10 rounded-2xl p-5 flex flex-col gap-3 hover:border-green-500/30 transition-all"
+                  className="bg-gray-900 border border-white/10 rounded-2xl p-5 flex flex-col justify-between min-h-[430px] hover:border-green-500/30 transition-all"
                 >
                   {/* Title + Badge */}
                   <div className="flex items-start justify-between gap-2">
@@ -153,7 +155,7 @@ const Programs = () => {
 
                   {/* Description */}
                   <p className="text-gray-400 text-sm line-clamp-2">
-                    {dummyDesc[program.level] || dummyDesc.Beginner}
+                    {program.description || dummyDesc[program.level] || dummyDesc.Beginner}
                   </p>
 
                   {/* Meta — lucide icons */}
@@ -164,7 +166,7 @@ const Programs = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <Clock size={13} className="text-gray-500 flex-shrink-0" />
-                      <span>{dummySchedule[program.level] || dummySchedule.Beginner}</span>
+                      <span>{program.schedule || dummySchedule[program.level] || dummySchedule.Beginner}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <GraduationCap size={13} className="text-gray-500 flex-shrink-0" />
